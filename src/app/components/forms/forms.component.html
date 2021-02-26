@@ -1,0 +1,84 @@
+<form #myForm="ngForm" (ngSubmit)="save(myForm)">
+    <div>
+        <label class="title">{{title | uppercase }}</label>
+    </div>
+    <div class="formContainer">
+        <div class="borderBox">
+            <div class="fieldContainer">
+                <label class="field">Nome</label>
+                <input 
+                class="inputField" 
+                type="text" 
+                id="txtTitolo" 
+                required 
+                [ngModel]="model?.nome" 
+                name="nome"
+                #nome="ngModel">
+                <span class="alert" [hidden]="nome.valid">Il nome é obbligatorio!</span>
+            </div>
+
+            <div class="fieldContainer">
+                <label class="field" for="cognome">Cognome</label>
+                <input 
+                class="inputField" 
+                type="text" 
+                id="cognome" 
+                required 
+                [ngModel]="model?.cognome" 
+                name="cognome"
+                #cognome="ngModel">
+                <span class="alert" [hidden]="cognome.valid">Il cognome é obbligatorio!</span>
+            </div>
+            <!--ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"-->
+            <div class="fieldContainer">
+                <label class="field" for="date">Data di nascita</label>
+                <input 
+                class="inputField" 
+                type="date" 
+                [ngModel]="model?.date" 
+                name="date" 
+                #date="ngModel"
+                />
+            </div>
+            <div>
+                <button 
+                [disabled]="!myForm.valid" 
+                type="submit"> Invia </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<hr class="line">
+<div>
+    <label class="title">{{listTitle | uppercase }}</label>
+</div>
+
+<div class="contatListContainer">
+    <ul>
+        <li class="listItem" *ngFor="let user of models">
+            <div>
+                <label>Nome: </label>
+                {{user.nome | uppercase }}
+            </div>
+
+            <div>
+                <label>Cognome: </label>
+                {{user.cognome | uppercase }}
+            </div>
+            <div *ngIf="user.date">
+                <label>Data di Nascita: </label>
+                {{user.date | date: 'dd MM YYYY'}}
+            </div>
+            <span >
+                <button 
+                class="contactBtn" 
+                (click)="removeElement()"> Remove </button>
+                <button 
+                (click)="editElement()"> Edit </button>
+            </span>
+        </li>
+    </ul>
+
+</div>
